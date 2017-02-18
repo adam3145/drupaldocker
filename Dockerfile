@@ -1,2 +1,2 @@
 FROM boran/drupal
-ADD ./start.sh /start.sh
+ADD ./start/start.sh /start.sh
