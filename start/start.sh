@@ -70,8 +70,7 @@ echo "02. check mysql"
 # is drupal already installed, or an internal or external DB?
 #if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]] && [[ $db_already -eq 0 ]]; then
 if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]]                           ; then
-  mkdir $www/sites
-  mkdir $www/sitesadam
+
   echo "03. Website not installed: there is no $www/sites/default/settings.php and no DB"
   echo "30" > $buildstat
 
@@ -100,8 +99,8 @@ if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]]   
     MYSQL_USER="drupal"
     MYSQL_DATABASE="drupal"
     # Generate random passwords 
-    MYSQL_ROOT_PASSWORD=`pwgen -c -n -1 12`
-    MYSQL_PASSWORD=`pwgen -c -n -1 12`
+    MYSQL_ROOT_PASSWORD="drupal2017"
+    MYSQL_PASSWORD="drupal2017"
     # If needed to show passwords in the logs: 
     #echo mysql root password: $MYSQL_ROOT_PASSWORD, drupal password: $MYSQL_PASSWORD
     echo "Generated mysql root + drupal password, see /root/.my.cnf /mysql-root-pw.txt /drupal-db-pw.txt"
