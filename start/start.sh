@@ -284,7 +284,7 @@ echo "02. check mysql"
     fi
   fi;
 echo "7.5 drop table and import local database if db exists"
-if [[ ! -f /tmp/db/localhost.sql ]]                           ; then
+if [[ -f /tmp/db/localhost.sql ]]   ; then
     drush sql-drop -y
     drush sql-cli < /tmp/db/localhost.sql
     drush fra -y
