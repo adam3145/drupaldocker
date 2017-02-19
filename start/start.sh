@@ -69,7 +69,7 @@ echo "02. check mysql"
 
 # is drupal already installed, or an internal or external DB?
 #if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]] && [[ $db_already -eq 0 ]]; then
-if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]]                           ; then
+#if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]]                           ; then
 
   echo "03. Website not installed: there is no $www/sites/default/settings.php and no DB"
   echo "30" > $buildstat
@@ -283,7 +283,13 @@ if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]]   
       echo "File '${DRUPAL_FINAL_SCRIPT}' is not executable or found"
     fi
   fi;
-
+echo "7.5 drop table and import local database if db exists"
+if [[ ! -f /tmp/db/localhost.sql ]]                           ; then
+    drush sql-drop -y
+    drush sql-cli < /tmp/db/localhost.sql
+    drush fra -y
+    drush cc all
+fi
 
   echo "08. Drupal site installation finished. Starting processes via supervisor."
   echo "80" > $buildstat
@@ -299,11 +305,6 @@ if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]]   
 
   # build is 100% done
   echo "100" > $buildstat
-
-else 
-  echo "09. Site already installed or DB exists: no installation needed."
-fi
-
 
 # Enable the cron/syslog daemons?
 if [[ ${SUPERVISOR_CRON_ENABLE} ]]; then
