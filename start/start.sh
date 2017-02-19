@@ -70,7 +70,8 @@ echo "02. check mysql"
 # is drupal already installed, or an internal or external DB?
 #if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]] && [[ $db_already -eq 0 ]]; then
 if [[ ! -f $www/sites/default/settings.php ]] && [[ ! -f /drupal-db-pw.txt ]]                           ; then
-
+  mkdir $www/sites
+  mkdir $www/sitesadam
   echo "03. Website not installed: there is no $www/sites/default/settings.php and no DB"
   echo "30" > $buildstat
 
